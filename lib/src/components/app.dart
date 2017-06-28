@@ -18,142 +18,111 @@ class AppProps extends UiProps {}
 @State()
 class AppState extends UiState {}
 
-//const divStyle = {
-//  color: 'blue',
-//  backgroundImage: 'url(' + imgUrl + ')',
-//};
-
 @Component()
 class AppComponent extends UiStatefulComponent<AppProps, AppState>{
 
   @override
   render(){
     return GridFrame()(
-        (Block()
-          ..className = 'rootNodeDemoClasses'
+      (Block()
+        ..className = 'rootNodeDemoClasses'
+      )(
+        (BlockContent()
+          ..className = 'content1'
+          ..shrink = true
+          ..gutter = BlockGutter.HORIZONTAL
         )(
-            (Block()
-              ..className = 'content1'
-              ..shrink = true
-              ..gutter = BlockGutter.HORIZONTAL
-//              ..collapse = BlockCollapse.HORIZONTAL
+          (ListGroup()
+            ..className = 'TagsList'
+          )(
+            (ListGroupItem()
+              ..className = 'StaticTags'
             )(
-              (ListGroup()
-                ..showItemDividers = false
+              (Nav()
+                ..type = NavType.PILLS
+                ..isStacked = true
               )(
-                ListGroupItem()('Test1'),
-                ListGroupItem()('Test2'),
-                ListGroupItem()('Test1'),
-                ListGroupItem()('Test2'),
-                ListGroupItem()('Test1'),
-                ListGroupItem()('Test2'),
-                ListGroupItem()('Test1'),
-                ListGroupItem()('Test2'),
-              )
-            ),
-            (BlockContent()
-              ..className = 'content2'
-              ..shrink = true
-//              ..collapse = BlockCollapse.HORIZONTAL
-            )(
-              (VBlock()
-                ..shrink = true
-                ..isNested = false
-              )(
-                (TextInput()..size = InputSize.LARGE)(),
-                // Not currently working
-                (FilterableDropdownMenuPrimitive()
-                  ..defaultSearchQuery = 'Alien'
-                  ..searchFilter = (dynamic item, String searchQuery) {
-                    // For this implementation, we know all the items are going to be SelectOptions...
-                    var selectOptionProps = SelectOption()
-                      ..addAll(new SelectOptionComponent().getDefaultProps())
-                      ..addAll(getProps(item));
-
-                    return selectOptionProps.displayText.toUpperCase().contains(searchQuery.toUpperCase());
-                  }
+                (NavItem()
+                  ..style = {'text-align': 'center'}
                 )(
-                  (SelectOption()
-                    ..displayText = 'The Adventures of Buckaroo Banzai Across the 8th Dimension'
-                    ..value = 1
-                  )('The Adventures of Buckaroo Banzai Across the 8th Dimension'),
-                  (SelectOption()
-                    ..displayText = 'Alien'
-                    ..value = 2
-                  )('Alien'),
-                  (SelectOption()
-                    ..displayText = 'Alien Nation'
-                    ..value = 3
-                  )('Alien Nation'),
-                  (SelectOption()
-                    ..displayText = 'Aliens'
-                    ..value = 4
-                  )('Aliens'),
-                  (SelectOption()
-                    ..displayText = 'Buck Rogers in the 25th Century'
-                    ..value = 5
-                  )('Buck Rogers in the 25th Century'),
-                  (SelectOption()
-                    ..displayText = 'Enemy Mine'
-                    ..value = 6
-                  )('Enemy Mine'),
-                  (SelectOption()
-                    ..displayText = 'Event Horizon'
-                    ..value = 7
-                  )('Event Horizon'),
-                  (SelectOption()
-                    ..displayText = 'Flash Gordon'
-                    ..value = 8
-                  )('Flash Gordon'),
-                  (SelectOption()
-                    ..displayText = 'Galaxy Quest'
-                    ..value = 9
-                  )('Galaxy Quest'),
-                  (SelectOption()
-                    ..displayText = 'Spaceballs'
-                    ..value = 10
-                  )('Spaceballs'),
-                  (SelectOption()
-                    ..displayText = 'Star Wars'
-                    ..value = 11
-                  )('Star Wars'),
-                  (SelectOption()
-                    ..displayText = 'Star Trek'
-                    ..value = 12
-                  )('Star Trek')
+                  'All'
                 ),
-                ListGroup()(
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                  ListGroupItem()('Test2'),
-                  ListGroupItem()('Test1'),
-                )
+                (NavItem()
+                  ..style = {'text-align': 'center'}
+                )(
+                  'Trash'
+                ),
               ),
             ),
-            (BlockContent()
-              ..className = 'content5'
+            (ListGroupItem()
+              ..className = 'DynamicTags'
             )(
-              (AutosizeTextarea()
-                ..label = 'Basic Example'
-                ..hideLabel = true
-                ..placeholder = 'New note...'
-                ..className = 'noteArea'
-              )()
+              (Nav()
+                ..type = NavType.PILLS
+                ..isStacked = true
+                ..style = {'maxWidth': '30rem'}
+              )(
+                NavItem()('#tag1'),
+                NavItem()('#tag2'),
+                NavItem()('#tag3'),
+              ),
             ),
+          ),
         ),
+        (BlockContent()
+          ..className = 'content2'
+          ..shrink = true
+        )(
+          (VBlock()
+            ..shrink = true
+            ..isNested = false
+          )(
+            (SearchInput()
+              ..placeholder = 'Search Notes'
+              ..hideLabel = true
+            )(),
+            ListGroup()(
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+              ListGroupItem()('Test2'),
+              ListGroupItem()('Test1'),
+            )
+          ),
+        ),
+        (BlockContent()
+          ..className = 'content5'
+        )(
+          (AutosizeTextarea()
+            ..label = 'Basic Example'
+            ..hideLabel = true
+            ..placeholder = 'New note...'
+            ..className = 'noteArea'
+          )(),
+//          (TextInput()..size = InputSize.SMALL)(),
+          (Nav()
+            ..type = NavType.PILLS
+//            ..isStacked = true
+            ..style = {'maxWidth': '30rem'}
+          )(
+            (NavItem()..isDisabled = true)('#tag1'),
+            (NavItem()..isDisabled = true)('#tag2'),
+            (NavItem()..isDisabled = true)('#tag3'),
+          ),
+        ),
+      ),
     );
   }
 }
