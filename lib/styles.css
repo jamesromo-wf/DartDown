@@ -53,3 +53,11 @@ html, body {
   color: #000000;
   background-color: #fdfdfd;
 }
+
+.new-button {
+    background-color: #dddddd;
+}
+
+.plus-icon {
+    color: #00ccff
+}
