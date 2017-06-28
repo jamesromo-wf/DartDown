@@ -16,7 +16,7 @@ class InputSectionComponent extends UiStatefulComponent<InputSectionProps, Input
   render() {
     return (
         (BlockContent()
-          ..className = 'content5'
+          ..className = 'input-section--content'
         )(
           (AutosizeTextarea()
             ..label = 'Basic Example'

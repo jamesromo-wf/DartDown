@@ -16,7 +16,7 @@ class TagsSectionComponent extends UiStatefulComponent<TagsSectionProps, TagsSec
   render() {
     return (
       (BlockContent()
-        ..className = 'content1'
+        ..className = 'tags-section--content'
         ..shrink = true
         ..gutter = BlockGutter.HORIZONTAL
       )(

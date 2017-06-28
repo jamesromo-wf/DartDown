@@ -14,12 +14,17 @@ html, body {
   text-align: center;
 }
 
-.content1 {
+.grid-root-content {
   color: #000000;
-  background-color: #fdfdfd;
+  background-color: #1d1d1d;
 }
 
-.content2 {
+.content1, .tags-section--content {
+  color: #000000;
+  background-color: #f5f5f5;
+}
+
+.content2, .notes-section--content {
   color: #000000;
   background-color: #dddddd;
 }
@@ -34,7 +39,7 @@ html, body {
   background-color: #9d9d9d;
 }
 
-.content5 {
+.content5, .input-section--content {
   color: #000000;
   background-color: #7d7d7d;
 }
@@ -42,11 +47,6 @@ html, body {
 .content6 {
   color: #000000;
   background-color: #5d5d5d;
-}
-
-.rootNodeDemoClasses {
-  color: #000000;
-  background-color: #1d1d1d;
 }
 
 .noteArea {

@@ -28,11 +28,11 @@ class AppComponent extends UiStatefulComponent<AppProps, AppState>{
   render(){
     return GridFrame()(
       (Block()
-        ..className = 'rootNodeDemoClasses'
+        ..className = 'grid-root-content'
       )(
-        (TagsSection()..className = 'TagsSection')(),
-        (NotesSection()..className = 'NotesSection')(),
-        (InputSection()..className = 'InputSection')(),
+        (TagsSection()..className = 'tags-section')(),
+        (NotesSection()..className = 'notes-section')(),
+        (InputSection()..className = 'input-section')(),
       ),
     );
   }

@@ -16,7 +16,7 @@ class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, Notes
   render() {
     return (
       (BlockContent()
-        ..className = 'content2'
+        ..className = 'notes-section--content'
         ..shrink = true
       )(
         (VBlock()
