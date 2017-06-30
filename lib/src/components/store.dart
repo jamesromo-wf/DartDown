@@ -3,15 +3,15 @@ import 'actions.dart';
 import 'models/note.dart';
 import 'models/tag.dart';
 
-class NoteStore extends Store {
-  final NoteActions _actions;
+class DartDownStore extends Store {
+  final DartDownActions _actions;
 
   Map<String, Note> _notesMap = {};
   Map<Tag, Set<Note>> _tagMap = {};
   String _activeNoteId;
   Set<Tag> _activeTags = new Set();
 
-  NoteStore(NoteActions actions) : _actions = actions {
+  DartDownStore(DartDownActions actions) : _actions = actions {
     triggerOnAction(_actions.createNote, _createNote);
     triggerOnAction(_actions.editNote, _editNote);
     triggerOnAction(_actions.deleteNote, _deleteNote);
@@ -50,6 +50,7 @@ class NoteStore extends Store {
     if (note == null) {
       note = new Note();
     }
+
     _notesMap[note.id] = note;
   }
 

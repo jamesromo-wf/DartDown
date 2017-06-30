@@ -9,11 +9,23 @@ import 'package:react/react_client.dart' show setClientConfiguration;
 import 'package:over_react/over_react.dart';
 import 'package:DartDown/src/components/app.dart';
 import 'package:web_skin_dart/ui_components.dart';
+import 'package:DartDown/src/components/store.dart';
+import 'package:DartDown/src/components/actions.dart';
 
 void main() {
   decorateRootNodeWithPlatformClasses(features: getWebSkinFeatures());
 
   //Initialize React within our Dart App:
   setClientConfiguration();
-  react_dom.render((App()..className = "DartDown")(), querySelector('#container'));
+
+  var _actions = new DartDownActions();
+  var _store = new DartDownStore(_actions);
+
+  react_dom.render(
+      (App()
+        ..className = "DartDown"
+        ..actions = _actions
+        ..store = _store
+      )(),
+      querySelector('#container'));
 }

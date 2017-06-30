@@ -11,18 +11,19 @@ import 'package:over_react/over_react.dart';
 import 'tags_section.dart';
 import 'notes_section.dart';
 import 'input_section.dart';
+import 'store.dart';
+import 'actions.dart';
 
 @Factory()
 UiFactory<AppProps> App;
 
 @Props()
-class AppProps extends UiProps {}
-
-@State()
-class AppState extends UiState {}
+class AppProps extends FluxUiProps<DartDownActions, DartDownStore> {}
 
 @Component()
-class AppComponent extends UiStatefulComponent<AppProps, AppState>{
+class AppComponent extends FluxUiComponent<AppProps> {
+  @override
+  getDefaultProps() => (newProps());
 
   @override
   render(){
@@ -30,9 +31,23 @@ class AppComponent extends UiStatefulComponent<AppProps, AppState>{
       (Block()
         ..className = 'grid-root-content'
       )(
-        (TagsSection()..className = 'tags-section')(),
-        (NotesSection()..className = 'notes-section')(),
-        (InputSection()..className = 'input-section')(),
+        (TagsSection()
+          ..className = 'tags-section'
+          ..tags = props.store.tags
+          ..activeTags = props.store.activeTags
+          ..actions = props.actions
+        )(),
+        (NotesSection()
+          ..className = 'notes-section'
+          ..notes = props.store.notes
+          ..actions = props.actions
+          ..activeNote = props.store.activeNote
+        )(),
+        (InputSection()
+          ..className = 'input-section'
+          ..activeNote = props.store.activeNote
+          ..actions = props.actions
+        )(),
       ),
     );
   }
