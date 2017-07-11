@@ -93,7 +93,6 @@ class InputSectionComponent extends UiStatefulComponent<InputSectionProps, Input
       );
     }
 
-    print('note text null');
     return (
         (BlockContent()
           ..className = 'input-section--content'
@@ -135,6 +134,5 @@ class InputSectionComponent extends UiStatefulComponent<InputSectionProps, Input
   void handleTimeout() {
     // callback function
     _saveNoteText(null);
-    print('Autosaving Note');
   }
 }

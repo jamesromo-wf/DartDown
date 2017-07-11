@@ -21,6 +21,9 @@ class NotesSectionState extends UiState {
 
 @Component()
 class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, NotesSectionState> {
+  var modalTriggerRef;
+  String noteTitle = 'Untitled';
+
   @override
   render() {
     return (
@@ -40,19 +43,51 @@ class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, Notes
             )(),
             (Button()
               ..onClick = (_) {
-                _createNote(_);
-//                props.actions.createNote(new Note(text: 'A new note!'));
+                _showCreateNoteModal();
               }
               ..className = 'new-button'
               ..isFlat = true
               ..noText = true
             )(
-                (Icon()
-                  ..className = 'plus-icon'
-                  ..glyph = IconGlyph.PLUS
-                  ..size = IconSize.MEDIUM
-                )()
+              (Icon()
+                ..className = 'plus-icon'
+                ..glyph = IconGlyph.PLUS
+                ..size = IconSize.MEDIUM
+              )()
             ),
+            (ModalTrigger()
+              ..ref = (instance) { modalTriggerRef = instance; }
+              ..modal = (Modal()
+              ..header = 'Create New Note'
+              ..backdropType = ModalBackdropType.DEFAULT
+            )(
+              DialogBody()(
+                (TextInput()
+                  ..type = TextInputType.TEXT
+                  ..placeholder = 'Enter new note title'
+                  ..label = 'Note title'
+                  ..hideLabel = true
+                  ..onChange = ((event) => noteTitle = event.target.value)
+//                    setState({'value': event.target.value}))
+                )(),
+              ),
+              DialogFooter()(
+                (Button()
+                  ..onClick = (SyntheticMouseEvent event) {
+                    modalTriggerRef.hide();
+//                            modalTriggerRef.props.onRequestHide(event);
+                  }
+                )('Cancel'),
+                (Button()
+                  ..skin = ButtonSkin.PRIMARY
+                  ..onClick = (SyntheticMouseEvent event) {
+                    modalTriggerRef.hide();
+                    _createNote(noteTitle);
+//                            modalTriggerRef.props.onRequestHide(event);
+                  }
+                )('Create')
+                )
+            ))()
           ),
           ListGroup()(
             renderNotes()
@@ -62,10 +97,13 @@ class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, Notes
     );
   }
 
-  void _createNote(_) {
+  void _showCreateNoteModal() {
+    modalTriggerRef.toggle();
+  }
+
+  void _createNote(String noteTitle) {
     if (props.actions != null) {
-      props.actions.createNote(new Note(text: 'A new note!'));
-//      props.actions.createNote(new Note(text: 'My first note!'));
+      props.actions.createNote(new Note(text: noteTitle));
     }
   }
 
@@ -86,7 +124,7 @@ class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, Notes
           ..isActive = note == props.activeNote)(previewText);
 
         if (state.searchTerm != null && state.searchTerm.isNotEmpty &&
-            !note.text.contains(state.searchTerm)){
+            !note.text.contains(state.searchTerm)) {
           continue;
         }
         notes.add(listItem);
@@ -97,13 +135,10 @@ class NotesSectionComponent extends UiStatefulComponent<NotesSectionProps, Notes
   }
 
   void _handleSearchValueChanged(SyntheticFormEvent event) {
-    //Perform search/filter
     setState(newState()..searchTerm = event.target.value);
   }
 
   void _handleListSelect(SyntheticMouseEvent event, Object targetKey) {
-    print('selecting new active');
-
     int targetKeyIndex = targetKey;
     if (targetKeyIndex >= 0 && targetKeyIndex < props.notes.length) {
       Note note = props.notes[targetKeyIndex];
