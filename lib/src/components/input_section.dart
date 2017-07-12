@@ -29,10 +29,8 @@ class InputSectionComponent extends UiStatefulComponent<InputSectionProps, Input
   @override
   Map getInitialState() {
     if (props.activeNote != null) {
-      print('active note');
       return (newState()..noteText = props.activeNote.text);
     } else {
-      print('no active note');
       return (newState()..noteText = null);
     }
   }
@@ -51,9 +49,7 @@ class InputSectionComponent extends UiStatefulComponent<InputSectionProps, Input
       if (props.activeNote != null && (nextNote != props.activeNote
           || (nextNote == props.activeNote && props.activeNote.text != state.noteText))) {
         _saveNoteText(null);
-        print('received props3');
       }
-      print('received props4');
       setState(newState()..noteText = nextNote != null ? nextNote.text : null);
     }
   }
