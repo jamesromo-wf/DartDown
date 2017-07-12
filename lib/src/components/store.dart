@@ -62,7 +62,9 @@ class DartDownStore extends Store {
 
       note = _notesMap[_activeNoteId];
     }
+
     _notesMap[note.id] = note;
+
     for (Tag tag in note.noteHashtags) {
       if (!_tagMap.containsKey(tag)) {
         _tagMap[tag] = new Set<Note>();
